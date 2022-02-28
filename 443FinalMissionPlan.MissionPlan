@@ -1,0 +1,933 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<FreeFlyerProjectFile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" timePrecisionMode="nanosecond" schemaVersion="7.4.0.9">
+  <ProjectInformation>
+    <Author />
+    <Source />
+    <FreeFlyerVersion>7.4.1.52527</FreeFlyerVersion>
+    <RevisionNumber />
+    <Title>Walker Constellation</Title>
+    <Subject />
+    <Category />
+    <Keywords />
+    <Comments>This MissionPlan demonstrates how FreeFlyer can be used to dynamically create a constellation of spacecraft.</Comments>
+    <Notes />
+  </ProjectInformation>
+  <ProjectPreferences>
+    <General>
+      <LockProjectFromEditing>false</LockProjectFromEditing>
+    </General>
+    <OnOpen>
+      <ShowControlSequence>true</ShowControlSequence>
+      <ShowEmptyEnvironment>false</ShowEmptyEnvironment>
+      <ShowNotes>false</ShowNotes>
+      <ShowHome>false</ShowHome>
+      <ShowOutput>false</ShowOutput>
+      <CreateBackup>false</CreateBackup>
+      <BackupLocation></BackupLocation>
+    </OnOpen>
+    <OnRun>
+      <SaveMissionPlan>false</SaveMissionPlan>
+      <HideWarningMessages>false</HideWarningMessages>
+    </OnRun>
+  </ProjectPreferences>
+  <ProjectDataFiles>
+    <EarthOrientationFile useDefault="true"></EarthOrientationFile>
+    <ElectronDensityCoefficientFile useDefault="true"></ElectronDensityCoefficientFile>
+    <GeopotentialFile useDefault="true"></GeopotentialFile>
+    <HarrisPriesterDragFile useDefault="true"></HarrisPriesterDragFile>
+    <JacchiaAtmosphereModelFile useDefault="true"></JacchiaAtmosphereModelFile>
+    <LeapSecondFile useDefault="true"></LeapSecondFile>
+    <MagneticFieldFile useDefault="true"></MagneticFieldFile>
+    <PlanetaryFile useDefault="true"></PlanetaryFile>
+    <StationGeodeticsFile useDefault="true"></StationGeodeticsFile>
+    <SolidTideFile useDefault="true"></SolidTideFile>
+    <DSTFile useDefault="true"></DSTFile>
+    <StarFieldFile useDefault="true"></StarFieldFile>
+  </ProjectDataFiles>
+  <ProjectObjects>
+    <Object>
+      <SolarSystem name="FF_SolarSystem" isConstant="false" isGlobal="true">
+        <Name>FF_SolarSystem</Name>
+        <ComputePolarMotion>false</ComputePolarMotion>
+        <ApplyUT1Correction>true</ApplyUT1Correction>
+        <COUpdateInterval units="s" displayed_units="s">0</COUpdateInterval>
+        <NPUpdateInterval units="s" displayed_units="s">1800</NPUpdateInterval>
+        <IonosphereOptions>
+          <IonosphereOptions name="FF_SolarSystem_|ionoOptions|" isConstant="false" isGlobal="true">
+            <Name>FF_SolarSystem_|ionoOptions|</Name>
+            <MaximumHeight units="km" displayed_units="km">1000</MaximumHeight>
+            <MinimumHeight units="km" displayed_units="km">80</MinimumHeight>
+            <IntegrationStepSize units="km" displayed_units="km">25</IntegrationStepSize>
+            <ScaleFactor units="" displayed_units="">1</ScaleFactor>
+            <Model>0</Model>
+            <metadata dim="0" />
+          </IonosphereOptions>
+        </IonosphereOptions>
+        <NoradKeplerEqTolerance units="" displayed_units="">1e-012</NoradKeplerEqTolerance>
+        <metadata dim="0" />
+      </SolarSystem>
+    </Object>
+    <Object>
+      <ConsoleWindow name="Console" isConstant="false" isGlobal="true">
+        <Name>Console</Name>
+        <WindowTitle>Console</WindowTitle>
+        <WordWrap>false</WordWrap>
+        <CurrentTextColor>0</CurrentTextColor>
+        <BackColor>16777215</BackColor>
+        <Dimension units="" displayed_units="">10</Dimension>
+        <DockMode>1</DockMode>
+        <CurrentFontType>0</CurrentFontType>
+        <UseStdOut>false</UseStdOut>
+        <ShowOnRun>false</ShowOnRun>
+        <metadata dim="0" />
+      </ConsoleWindow>
+    </Object>
+    <Object>
+      <String name="TLEfile" isConstant="false" isGlobal="false">
+        <Name>TLEfile</Name>
+        <Value></Value>
+        <metadata dim="0" />
+      </String>
+    </Object>
+    <Object>
+      <Variable name="ConstType" isConstant="false" isGlobal="false">
+        <Name>ConstType</Name>
+        <Value units="" displayed_units="">0</Value>
+        <metadata dim="0" />
+      </Variable>
+    </Object>
+    <Object>
+      <Variable name="Ecc" isConstant="false" isGlobal="false">
+        <Name>Ecc</Name>
+        <Value units="" displayed_units="">0</Value>
+        <metadata dim="0" />
+      </Variable>
+    </Object>
+    <Object>
+      <Variable name="Inc" isConstant="false" isGlobal="false">
+        <Name>Inc</Name>
+        <Value units="" displayed_units="">0</Value>
+        <metadata dim="0" />
+      </Variable>
+    </Object>
+    <Object>
+      <Variable name="nPlanes" isConstant="false" isGlobal="false">
+        <Name>nPlanes</Name>
+        <Value units="" displayed_units="">0</Value>
+        <metadata dim="0" />
+      </Variable>
+    </Object>
+    <Object>
+      <Variable name="nSCsPerPlane" isConstant="false" isGlobal="false">
+        <Name>nSCsPerPlane</Name>
+        <Value units="" displayed_units="">0</Value>
+        <metadata dim="0" />
+      </Variable>
+    </Object>
+    <Object>
+      <Variable name="SMA" isConstant="false" isGlobal="false">
+        <Name>SMA</Name>
+        <Value units="" displayed_units="">0</Value>
+        <metadata dim="0" />
+      </Variable>
+    </Object>
+    <Object>
+      <Variable name="ViewAsGroup" isConstant="false" isGlobal="false">
+        <Name>ViewAsGroup</Name>
+        <Value units="" displayed_units="">0</Value>
+        <metadata dim="0" />
+      </Variable>
+    </Object>
+    <Object>
+      <Variable name="W" isConstant="false" isGlobal="false">
+        <Name>W</Name>
+        <Value units="" displayed_units="">0</Value>
+        <metadata dim="0" />
+      </Variable>
+    </Object>
+    <Object>
+      <UserInterface name="ChooseConstType" isConstant="false" isGlobal="false">
+        <Name>ChooseConstType</Name>
+        <General>
+          <Title></Title>
+          <ContinueButtonLabel>&amp;Continue</ContinueButtonLabel>
+          <LabelColumnWidth units="pixel" displayed_units="pixel">200</LabelColumnWidth>
+          <DataColumnWidth units="pixel" displayed_units="pixel">400</DataColumnWidth>
+          <NavigationType>Ordered Access</NavigationType>
+          <Elements dim="3">
+            <value>
+              <UIMultiChoice name="ChooseConstType_DataElement1" isConstant="false" isGlobal="false">
+                <Name>ChooseConstType_DataElement1</Name>
+                <ValueDestination>
+                  <ObjectHolder name="ChooseConstType_DataElement1_:ValueDestination" isConstant="false" isGlobal="false">
+                    <Name>ChooseConstType_DataElement1_:ValueDestination</Name>
+                    <BaseObject>ConstType</BaseObject>
+                    <metadata dim="0" />
+                  </ObjectHolder>
+                </ValueDestination>
+                <Label>Please choose a Constellation Definition:</Label>
+                <Items dim="5">
+                  <value>
+                    <UIMultiChoiceItem name="ChooseConstType_DataElement1_Choice1" isConstant="false" isGlobal="false">
+                      <Name>ChooseConstType_DataElement1_Choice1</Name>
+                      <Label>Custom Walker Constellation</Label>
+                      <Value>
+                        <DoubleConstant name="ChooseConstType_DataElement1_Choice1_:Value" isConstant="false" isGlobal="false">
+                          <Name>ChooseConstType_DataElement1_Choice1_:Value</Name>
+                          <value units="" displayed_units="">0</value>
+                          <metadata dim="0" />
+                        </DoubleConstant>
+                      </Value>
+                      <metadata dim="0" />
+                    </UIMultiChoiceItem>
+                  </value>
+                  <value>
+                    <UIMultiChoiceItem name="ChooseConstType_DataElement1_Choice2" isConstant="false" isGlobal="false">
+                      <Name>ChooseConstType_DataElement1_Choice2</Name>
+                      <Label>Input TLE file</Label>
+                      <Value>
+                        <DoubleConstant name="ChooseConstType_DataElement1_Choice2_:Value" isConstant="false" isGlobal="false">
+                          <Name>ChooseConstType_DataElement1_Choice2_:Value</Name>
+                          <value units="" displayed_units="">1</value>
+                          <metadata dim="0" />
+                        </DoubleConstant>
+                      </Value>
+                      <metadata dim="0" />
+                    </UIMultiChoiceItem>
+                  </value>
+                  <value>
+                    <UIMultiChoiceItem name="ChooseConstType_DataElement1_Choice3" isConstant="false" isGlobal="false">
+                      <Name>ChooseConstType_DataElement1_Choice3</Name>
+                      <Label>GPS Constellation</Label>
+                      <Value>
+                        <DoubleConstant name="ChooseConstType_DataElement1_Choice3_:Value" isConstant="false" isGlobal="false">
+                          <Name>ChooseConstType_DataElement1_Choice3_:Value</Name>
+                          <value units="" displayed_units="">2</value>
+                          <metadata dim="0" />
+                        </DoubleConstant>
+                      </Value>
+                      <metadata dim="0" />
+                    </UIMultiChoiceItem>
+                  </value>
+                  <value>
+                    <UIMultiChoiceItem name="ChooseConstType_DataElement1_Choice4" isConstant="false" isGlobal="false">
+                      <Name>ChooseConstType_DataElement1_Choice4</Name>
+                      <Label>Iridium Constellation</Label>
+                      <Value>
+                        <DoubleConstant name="ChooseConstType_DataElement1_Choice4_:Value" isConstant="false" isGlobal="false">
+                          <Name>ChooseConstType_DataElement1_Choice4_:Value</Name>
+                          <value units="" displayed_units="">3</value>
+                          <metadata dim="0" />
+                        </DoubleConstant>
+                      </Value>
+                      <metadata dim="0" />
+                    </UIMultiChoiceItem>
+                  </value>
+                  <value>
+                    <UIMultiChoiceItem name="ChooseConstType_DataElement1_Choice5" isConstant="false" isGlobal="false">
+                      <Name>ChooseConstType_DataElement1_Choice5</Name>
+                      <Label>GlobalStar Constellation</Label>
+                      <Value>
+                        <DoubleConstant name="ChooseConstType_DataElement1_Choice5_:Value" isConstant="false" isGlobal="false">
+                          <Name>ChooseConstType_DataElement1_Choice5_:Value</Name>
+                          <value units="" displayed_units="">4</value>
+                          <metadata dim="0" />
+                        </DoubleConstant>
+                      </Value>
+                      <metadata dim="0" />
+                    </UIMultiChoiceItem>
+                  </value>
+                </Items>
+                <DefaultValue>ChooseConstType_DataElement1_Choice1</DefaultValue>
+                <UseRadioButtons>true</UseRadioButtons>
+                <metadata dim="0" />
+              </UIMultiChoice>
+            </value>
+            <value>
+              <UISeperator name="ChooseConstType_FormattingElement1" isConstant="false" isGlobal="false">
+                <Name>ChooseConstType_FormattingElement1</Name>
+                <ShowLine>true</ShowLine>
+                <Label>Constellation View Options</Label>
+                <metadata dim="0" />
+              </UISeperator>
+            </value>
+            <value>
+              <UIBooleanChoice name="ChooseConstType_DataElement2" isConstant="false" isGlobal="false">
+                <Name>ChooseConstType_DataElement2</Name>
+                <ValueDestination>
+                  <ObjectHolder name="ChooseConstType_DataElement2_:ValueDestination" isConstant="false" isGlobal="false">
+                    <Name>ChooseConstType_DataElement2_:ValueDestination</Name>
+                    <BaseObject>ViewAsGroup</BaseObject>
+                    <metadata dim="0" />
+                  </ObjectHolder>
+                </ValueDestination>
+                <Label>View Spacecraft as a Group?</Label>
+                <DefaultValue>No</DefaultValue>
+                <FalseLabel>No</FalseLabel>
+                <TrueLabel>Yes</TrueLabel>
+                <metadata dim="0" />
+              </UIBooleanChoice>
+            </value>
+          </Elements>
+        </General>
+        <metadata dim="0" />
+      </UserInterface>
+    </Object>
+    <Object>
+      <UserInterface name="DefineWalkerConst" isConstant="false" isGlobal="false">
+        <Name>DefineWalkerConst</Name>
+        <General>
+          <Title>Constellation Definition</Title>
+          <ContinueButtonLabel>&amp;Continue</ContinueButtonLabel>
+          <LabelColumnWidth units="pixel" displayed_units="pixel">200</LabelColumnWidth>
+          <DataColumnWidth units="pixel" displayed_units="pixel">400</DataColumnWidth>
+          <NavigationType>Ordered Access</NavigationType>
+          <Elements dim="8">
+            <value>
+              <UISeperator name="DefineWalkerConst_FormattingElement2" isConstant="false" isGlobal="false">
+                <Name>DefineWalkerConst_FormattingElement2</Name>
+                <ShowLine>true</ShowLine>
+                <Label>Definition of Constellation</Label>
+                <metadata dim="0" />
+              </UISeperator>
+            </value>
+            <value>
+              <UINumericTextEntry name="DefineWalkerConst_DataElement1" isConstant="false" isGlobal="false">
+                <Name>DefineWalkerConst_DataElement1</Name>
+                <ValueDestination>
+                  <ObjectHolder name="DefineWalkerConst_DataElement1_:ValueDestination" isConstant="false" isGlobal="false">
+                    <Name>DefineWalkerConst_DataElement1_:ValueDestination</Name>
+                    <BaseObject>nPlanes</BaseObject>
+                    <metadata dim="0" />
+                  </ObjectHolder>
+                </ValueDestination>
+                <Label>Number of Orbital Planes</Label>
+                <DefaultValue>
+                  <DoubleConstant name="DefineWalkerConst_DataElement1_:DefaultValue" isConstant="false" isGlobal="false">
+                    <Name>DefineWalkerConst_DataElement1_:DefaultValue</Name>
+                    <value units="" displayed_units="">4</value>
+                    <metadata dim="0" />
+                  </DoubleConstant>
+                </DefaultValue>
+                <DoPerformRangeValidation>true</DoPerformRangeValidation>
+                <RangeMinimum units="" displayed_units="">1</RangeMinimum>
+                <RangeMaximum units="" displayed_units="">10</RangeMaximum>
+                <Decimals units="" displayed_units="">0</Decimals>
+                <Units></Units>
+                <metadata dim="0" />
+              </UINumericTextEntry>
+            </value>
+            <value>
+              <UINumericTextEntry name="DefineWalkerConst_DataElement2" isConstant="false" isGlobal="false">
+                <Name>DefineWalkerConst_DataElement2</Name>
+                <ValueDestination>
+                  <ObjectHolder name="DefineWalkerConst_DataElement2_:ValueDestination" isConstant="false" isGlobal="false">
+                    <Name>DefineWalkerConst_DataElement2_:ValueDestination</Name>
+                    <BaseObject>nSCsPerPlane</BaseObject>
+                    <metadata dim="0" />
+                  </ObjectHolder>
+                </ValueDestination>
+                <Label>Number of Spacecraft per Plane</Label>
+                <DefaultValue>
+                  <DoubleConstant name="DefineWalkerConst_DataElement2_:DefaultValue" isConstant="false" isGlobal="false">
+                    <Name>DefineWalkerConst_DataElement2_:DefaultValue</Name>
+                    <value units="" displayed_units="">6</value>
+                    <metadata dim="0" />
+                  </DoubleConstant>
+                </DefaultValue>
+                <DoPerformRangeValidation>true</DoPerformRangeValidation>
+                <RangeMinimum units="" displayed_units="">1</RangeMinimum>
+                <RangeMaximum units="" displayed_units="">10</RangeMaximum>
+                <Decimals units="" displayed_units="">0</Decimals>
+                <Units></Units>
+                <metadata dim="0" />
+              </UINumericTextEntry>
+            </value>
+            <value>
+              <UISeperator name="DefineWalkerConst_FormattingElement1" isConstant="false" isGlobal="false">
+                <Name>DefineWalkerConst_FormattingElement1</Name>
+                <ShowLine>true</ShowLine>
+                <Label>Orbital Elements of the Constellation</Label>
+                <metadata dim="0" />
+              </UISeperator>
+            </value>
+            <value>
+              <UINumericTextEntry name="DefineWalkerConst_DataElement3" isConstant="false" isGlobal="false">
+                <Name>DefineWalkerConst_DataElement3</Name>
+                <ValueDestination>
+                  <ObjectHolder name="DefineWalkerConst_DataElement3_:ValueDestination" isConstant="false" isGlobal="false">
+                    <Name>DefineWalkerConst_DataElement3_:ValueDestination</Name>
+                    <BaseObject>Inc</BaseObject>
+                    <metadata dim="0" />
+                  </ObjectHolder>
+                </ValueDestination>
+                <Label>Inclination of Orbit Planes</Label>
+                <DefaultValue>
+                  <DoubleConstant name="DefineWalkerConst_DataElement3_:DefaultValue" isConstant="false" isGlobal="false">
+                    <Name>DefineWalkerConst_DataElement3_:DefaultValue</Name>
+                    <value units="" displayed_units="">45</value>
+                    <metadata dim="0" />
+                  </DoubleConstant>
+                </DefaultValue>
+                <DoPerformRangeValidation>false</DoPerformRangeValidation>
+                <RangeMinimum units="" displayed_units="">-1</RangeMinimum>
+                <RangeMaximum units="" displayed_units="">1</RangeMaximum>
+                <Decimals units="" displayed_units="">0</Decimals>
+                <Units>deg</Units>
+                <metadata dim="0" />
+              </UINumericTextEntry>
+            </value>
+            <value>
+              <UINumericTextEntry name="DefineWalkerConst_DataElement4" isConstant="false" isGlobal="false">
+                <Name>DefineWalkerConst_DataElement4</Name>
+                <ValueDestination>
+                  <ObjectHolder name="DefineWalkerConst_DataElement4_:ValueDestination" isConstant="false" isGlobal="false">
+                    <Name>DefineWalkerConst_DataElement4_:ValueDestination</Name>
+                    <BaseObject>SMA</BaseObject>
+                    <metadata dim="0" />
+                  </ObjectHolder>
+                </ValueDestination>
+                <Label>Semi-Major Axis of Orbits</Label>
+                <DefaultValue>
+                  <DoubleConstant name="DefineWalkerConst_DataElement4_:DefaultValue" isConstant="false" isGlobal="false">
+                    <Name>DefineWalkerConst_DataElement4_:DefaultValue</Name>
+                    <value units="" displayed_units="">10000</value>
+                    <metadata dim="0" />
+                  </DoubleConstant>
+                </DefaultValue>
+                <DoPerformRangeValidation>true</DoPerformRangeValidation>
+                <RangeMinimum units="" displayed_units="">6378</RangeMinimum>
+                <RangeMaximum units="" displayed_units="">1e10</RangeMaximum>
+                <Decimals units="" displayed_units="">0</Decimals>
+                <Units>km</Units>
+                <metadata dim="0" />
+              </UINumericTextEntry>
+            </value>
+            <value>
+              <UINumericTextEntry name="DefineWalkerConst_DataElement5" isConstant="false" isGlobal="false">
+                <Name>DefineWalkerConst_DataElement5</Name>
+                <ValueDestination>
+                  <ObjectHolder name="DefineWalkerConst_DataElement5_:ValueDestination" isConstant="false" isGlobal="false">
+                    <Name>DefineWalkerConst_DataElement5_:ValueDestination</Name>
+                    <BaseObject>Ecc</BaseObject>
+                    <metadata dim="0" />
+                  </ObjectHolder>
+                </ValueDestination>
+                <Label>Eccentricity of Orbits</Label>
+                <DefaultValue>
+                  <DoubleConstant name="DefineWalkerConst_DataElement5_:DefaultValue" isConstant="false" isGlobal="false">
+                    <Name>DefineWalkerConst_DataElement5_:DefaultValue</Name>
+                    <value units="" displayed_units="">0.0000001</value>
+                    <metadata dim="0" />
+                  </DoubleConstant>
+                </DefaultValue>
+                <DoPerformRangeValidation>true</DoPerformRangeValidation>
+                <RangeMinimum units="" displayed_units="">0.000</RangeMinimum>
+                <RangeMaximum units="" displayed_units="">1</RangeMaximum>
+                <Decimals units="" displayed_units="">8</Decimals>
+                <Units></Units>
+                <metadata dim="0" />
+              </UINumericTextEntry>
+            </value>
+            <value>
+              <UINumericTextEntry name="DefineWalkerConst_DataElement6" isConstant="false" isGlobal="false">
+                <Name>DefineWalkerConst_DataElement6</Name>
+                <ValueDestination>
+                  <ObjectHolder name="DefineWalkerConst_DataElement6_:ValueDestination" isConstant="false" isGlobal="false">
+                    <Name>DefineWalkerConst_DataElement6_:ValueDestination</Name>
+                    <BaseObject>W</BaseObject>
+                    <metadata dim="0" />
+                  </ObjectHolder>
+                </ValueDestination>
+                <Label>Argument of Perigee</Label>
+                <DefaultValue>
+                  <DoubleConstant name="DefineWalkerConst_DataElement6_:DefaultValue" isConstant="false" isGlobal="false">
+                    <Name>DefineWalkerConst_DataElement6_:DefaultValue</Name>
+                    <value units="" displayed_units="">270</value>
+                    <metadata dim="0" />
+                  </DoubleConstant>
+                </DefaultValue>
+                <DoPerformRangeValidation>true</DoPerformRangeValidation>
+                <RangeMinimum units="" displayed_units="">-360</RangeMinimum>
+                <RangeMaximum units="" displayed_units="">360</RangeMaximum>
+                <Decimals units="" displayed_units="">0</Decimals>
+                <Units>deg</Units>
+                <metadata dim="0" />
+              </UINumericTextEntry>
+            </value>
+          </Elements>
+        </General>
+        <metadata dim="0" />
+      </UserInterface>
+    </Object>
+    <Object>
+      <UserInterface name="InputTLE" isConstant="false" isGlobal="false">
+        <Name>InputTLE</Name>
+        <General>
+          <Title></Title>
+          <ContinueButtonLabel>&amp;Continue</ContinueButtonLabel>
+          <LabelColumnWidth units="pixel" displayed_units="pixel">200</LabelColumnWidth>
+          <DataColumnWidth units="pixel" displayed_units="pixel">400</DataColumnWidth>
+          <NavigationType>Ordered Access</NavigationType>
+          <Elements dim="1">
+            <value>
+              <UIStringTextEntry name="InputTLE_DataElement1" isConstant="false" isGlobal="false">
+                <Name>InputTLE_DataElement1</Name>
+                <ValueDestination>
+                  <ObjectHolder name="InputTLE_DataElement1_:ValueDestination" isConstant="false" isGlobal="false">
+                    <Name>InputTLE_DataElement1_:ValueDestination</Name>
+                    <BaseObject>TLEfile</BaseObject>
+                    <metadata dim="0" />
+                  </ObjectHolder>
+                </ValueDestination>
+                <Label>Enter Path to TLE File:</Label>
+                <DefaultValue>
+                  <StringConstant name="InputTLE_DataElement1_:DefaultValue" isConstant="false" isGlobal="false">
+                    <Name>InputTLE_DataElement1_:DefaultValue</Name>
+                    <value>..\_Support_Files\spacetrak_tles\weather_sats.tle</value>
+                    <metadata dim="0" />
+                  </StringConstant>
+                </DefaultValue>
+                <DoPerformRegexValidation>false</DoPerformRegexValidation>
+                <ValidatingRegex></ValidatingRegex>
+                <PasswordChar></PasswordChar>
+                <metadata dim="0" />
+              </UIStringTextEntry>
+            </value>
+          </Elements>
+        </General>
+        <metadata dim="0" />
+      </UserInterface>
+    </Object>
+  </ProjectObjects>
+  <ProjectMissionSequence>
+    <ProjectExternals />
+    <ProjectCommands>
+      <FreeForm enabled="true">
+        <Label>Mission Plan Description and Console Setup</Label>
+        <Bookmarks />
+        <Breakpoints />
+        <FreeFormScript><![CDATA[
+// This MissionPlan demonstrates how FreeFlyer can be used to dynamically create a 
+// constellation of spacecraft.
+
+// The user chooses whether to generate the constellation through custom orbital 
+// elements, input a TLE set to populate the constellation, or choose a sample 
+// constellation.
+
+// Once the constellation, or "Formation", has been created, it is visualized in 
+// a 3D ViewWindow and propagated for two days.
+
+
+// Set up Console
+Console.DockMode = 3;
+Console.Dimension = 40;
+Console.BackColor = ColorTools.Black;
+Console.CurrentTextColor = ColorTools.Yellow;
+Console.WordWrap = 1;
+Console.Show();
+
+Report "This MissionPlan demonstrates how FreeFlyer can be used to dynamically create a constellation of spacecraft." to Console;
+Report "" to Console;
+
+Report "The user chooses whether to generate the constellation through custom orbital elements, input a TLE set to populate the constellation, or choose a sample constellation." to Console;
+Report "" to Console;
+
+Report "Once the constellation, or ''Formation'', has been created, it is visualized in a 3D ViewWindow and propagated for two days." to Console;
+Report "" to Console;
+
+Console.CurrentTextColor = ColorTools.LimeGreen;
+]]></FreeFormScript>
+      </FreeForm>
+      <FreeForm enabled="true">
+        <Label>Create Objects</Label>
+        <Bookmarks />
+        <Breakpoints />
+        <FreeFormScript><![CDATA[
+// Create Variables
+TimeSpan maxEpoch;///maximum epoch
+Variable nSC;///number of spacecraft
+Variable i;
+Variable j;
+Variable RAANincr;///RAAN increment
+Variable TAincr;///TA increment
+
+// Create Formation
+Formation const;///constellation
+]]></FreeFormScript>
+      </FreeForm>
+      <FreeForm enabled="true">
+        <Label>Initialize Constellation</Label>
+        <Bookmarks />
+        <Breakpoints />
+        <FreeFormScript><![CDATA[
+Show ChooseConstType;
+const.ViewAsGroup = ViewAsGroup;
+Variable num = 0;
+If (ConstType == 0);  // If user chose "Custom Walker constellation"
+
+	Show DefineWalkerConst;
+
+	Report "Building Walker Constellation...." to Console;
+	Report "" to Console;
+
+	nSC = nPlanes * nSCsPerPlane;
+	const.Count = nSC;
+
+	For i = 0 to (nPlanes - 1);
+
+		RAANincr = 360*(i/nPlanes);
+		For j = 0 to (nSCsPerPlane - 1);
+			num = j + i*nSCsPerPlane;
+			TAincr = 360*(j/nSCsPerPlane);
+
+			const[j + i*nSCsPerPlane].RAAN = RAANincr;
+			const[j + i*nSCsPerPlane].TA   = TAincr;
+			const[j + i*nSCsPerPlane].A    = SMA;
+			const[j + i*nSCsPerPlane].E    = Ecc;
+			const[j + i*nSCsPerPlane].I    = Inc;
+			const[j + i*nSCsPerPlane].W    = W;
+
+			const[j + i*nSCsPerPlane].AddSensor(StringConcat("AV_", num.Format("%d")));
+			
+		End;
+
+	End;
+	
+
+Else;  // If user chose "Input TLE file" or one of the sample constellations
+
+	If (ConstType == 1);
+		Show InputTLE;
+		Report "Building constellation based on TLE input...." to Console;
+	ElseIf (ConstType == 2);
+		TLEfile = "..\_Support_Files\spacetrak_tles\GPS.tle";
+		Report "Building GPS constellation...." to Console;
+	ElseIf (ConstType == 3);
+		TLEfile = "..\_Support_Files\spacetrak_tles\Iridium.tle";
+		Report "Building Iridium constellation...." to Console;
+	ElseIf (ConstType == 4);
+		TLEfile = "..\_Support_Files\spacetrak_tles\Globalstar.tle";
+		Report "Building GlobalStar constellation...." to Console;
+	End;
+
+	Report "" to Console;
+
+	const.Count = GetNumberOfNoradStates(TLEfile);
+	const.LoadNoradTLE(TLEfile);
+
+	// Identify element of constellation with the maximum Epoch
+	maxEpoch = const[0].Epoch;
+
+	For i = 1 to const.Count-1;
+		If (const[i].Epoch > maxEpoch);
+			maxEpoch = const[i].Epoch;
+		End;
+	End;
+
+	Report "Synchronizing TLE states...." to Console;
+	Report "" to Console;
+
+	// Step to Max Epoch
+	For i = 0 to const.Count-1;
+		Step const[i] to (const[i].Epoch == maxEpoch);
+		const[i].Propagator.StepSize = TIMESPAN(180 seconds);
+	End;
+
+End;
+
+// Create View Window
+ViewWindow MJ2000View({const});
+MJ2000View.CurrentViewpoint.ThreeDView.ReferenceFrame = "inertial";
+MJ2000View.CurrentViewpoint.ThreeDView.Declination = 20;
+MJ2000View.CurrentViewpoint.ThreeDView.RightAscension  = 200;
+MJ2000View.CurrentViewpoint.ThreeDView.FieldOfView = 60;
+
+// Set view distance
+MJ2000View.CurrentViewpoint.ThreeDView.Radius = 2.5*const[0].A;
+]]></FreeFormScript>
+      </FreeForm>
+      <FreeForm enabled="true">
+        <Label>Propagate Constellation</Label>
+        <Bookmarks />
+        <Breakpoints />
+        <FreeFormScript><![CDATA[
+Report "Propagating constellation...." to Console;
+
+// Propagate constellation for two days
+
+Array PointCoverage[0]; // Array to hold coverage statistics for each point
+
+Array PointRevisit[0];  // Array to hold revisit statistics for each point
+
+Array PointInView[0];   // Array to hold per sensor coverage indication for each point
+
+ 
+
+Variable CoverageChange;
+Array CoverageTimeScale[10000];
+Array VisitCount[10000];
+Variable timeStep = 100;
+ 
+
+PointGroup PointGroup1;
+
+PointGroup1.NumberOfPoints = 10000;      // Change value to match analysis requirements
+For i = 0 to 10000-1;
+	CoverageTimeScale[i] = 30000;
+	VisitCount[i] = 0;
+End;
+Array currPtVisit[10000];
+While (const[0].ElapsedTime < TIMESPAN(1 days));
+
+ 
+
+      //CoverageChange will be 1 if any coverage statistic was updated
+		For i = 0 to 10000-1;
+			currPtVisit[i] = 0;
+		End;
+	 For j = 0 to const.Count-1;
+	 	
+	      CoverageChange = PointGroup1.Coverage(const[j],PointCoverage,PointRevisit);
+	 		For i = 0 to 10000-1;
+		  		currPtVisit[i] = currPtVisit[i] + PointRevisit[i];
+	 		End;
+	 End;
+	 If (1);
+				  For i = 0 to PointGroup1.NumberOfPoints - 1;
+				     If(currPtVisit[i] != VisitCount[i]);
+				     	CoverageTimeScale[i] = 0;
+				     	VisitCount[i] = currPtVisit[i];
+				     Else;
+				     	CoverageTimeScale[i] = CoverageTimeScale[i] + timeStep;
+				     End;
+				  End;
+		            For i = 0 to PointGroup1.NumberOfPoints - 1;
+
+		            	
+		            	  If (CoverageTimeScale[i] < 21600);
+		            	  		PointGroup1.PointColor[i] = 0x00FF00;
+		            	  Else;
+		            	  		PointGroup1.PointColor[i] = 0x0000FF;
+		            	  End;
+
+		            End;
+
+	      End;
+
+ 
+
+      View const, PointGroup1;
+
+      Step const;
+
+ 
+
+End;]]></FreeFormScript>
+      </FreeForm>
+    </ProjectCommands>
+  </ProjectMissionSequence>
+  <ProjectScript><![CDATA[
+// This MissionPlan demonstrates how FreeFlyer can be used to dynamically create a 
+// constellation of spacecraft.
+
+// The user chooses whether to generate the constellation through custom orbital 
+// elements, input a TLE set to populate the constellation, or choose a sample 
+// constellation.
+
+// Once the constellation, or "Formation", has been created, it is visualized in 
+// a 3D ViewWindow and propagated for two days.
+
+
+// Set up Console
+Console.DockMode = 3;
+Console.Dimension = 40;
+Console.BackColor = ColorTools.Black;
+Console.CurrentTextColor = ColorTools.Yellow;
+Console.WordWrap = 1;
+Console.Show();
+
+Report "This MissionPlan demonstrates how FreeFlyer can be used to dynamically create a constellation of spacecraft." to Console;
+Report "" to Console;
+
+Report "The user chooses whether to generate the constellation through custom orbital elements, input a TLE set to populate the constellation, or choose a sample constellation." to Console;
+Report "" to Console;
+
+Report "Once the constellation, or ''Formation'', has been created, it is visualized in a 3D ViewWindow and propagated for two days." to Console;
+Report "" to Console;
+
+Console.CurrentTextColor = ColorTools.LimeGreen;
+
+
+// Create Variables
+TimeSpan maxEpoch;///maximum epoch
+Variable nSC;///number of spacecraft
+Variable i;
+Variable j;
+Variable RAANincr;///RAAN increment
+Variable TAincr;///TA increment
+
+// Create Formation
+Formation const;///constellation
+
+
+Show ChooseConstType;
+const.ViewAsGroup = ViewAsGroup;
+Variable num = 0;
+If (ConstType == 0);  // If user chose "Custom Walker constellation"
+
+	Show DefineWalkerConst;
+
+	Report "Building Walker Constellation...." to Console;
+	Report "" to Console;
+
+	nSC = nPlanes * nSCsPerPlane;
+	const.Count = nSC;
+
+	For i = 0 to (nPlanes - 1);
+
+		RAANincr = 360*(i/nPlanes);
+		For j = 0 to (nSCsPerPlane - 1);
+			num = j + i*nSCsPerPlane;
+			TAincr = 360*(j/nSCsPerPlane);
+
+			const[j + i*nSCsPerPlane].RAAN = RAANincr;
+			const[j + i*nSCsPerPlane].TA   = TAincr;
+			const[j + i*nSCsPerPlane].A    = SMA;
+			const[j + i*nSCsPerPlane].E    = Ecc;
+			const[j + i*nSCsPerPlane].I    = Inc;
+			const[j + i*nSCsPerPlane].W    = W;
+
+			const[j + i*nSCsPerPlane].AddSensor(StringConcat("AV_", num.Format("%d")));
+			
+		End;
+
+	End;
+	
+
+Else;  // If user chose "Input TLE file" or one of the sample constellations
+
+	If (ConstType == 1);
+		Show InputTLE;
+		Report "Building constellation based on TLE input...." to Console;
+	ElseIf (ConstType == 2);
+		TLEfile = "..\_Support_Files\spacetrak_tles\GPS.tle";
+		Report "Building GPS constellation...." to Console;
+	ElseIf (ConstType == 3);
+		TLEfile = "..\_Support_Files\spacetrak_tles\Iridium.tle";
+		Report "Building Iridium constellation...." to Console;
+	ElseIf (ConstType == 4);
+		TLEfile = "..\_Support_Files\spacetrak_tles\Globalstar.tle";
+		Report "Building GlobalStar constellation...." to Console;
+	End;
+
+	Report "" to Console;
+
+	const.Count = GetNumberOfNoradStates(TLEfile);
+	const.LoadNoradTLE(TLEfile);
+
+	// Identify element of constellation with the maximum Epoch
+	maxEpoch = const[0].Epoch;
+
+	For i = 1 to const.Count-1;
+		If (const[i].Epoch > maxEpoch);
+			maxEpoch = const[i].Epoch;
+		End;
+	End;
+
+	Report "Synchronizing TLE states...." to Console;
+	Report "" to Console;
+
+	// Step to Max Epoch
+	For i = 0 to const.Count-1;
+		Step const[i] to (const[i].Epoch == maxEpoch);
+		const[i].Propagator.StepSize = TIMESPAN(180 seconds);
+	End;
+
+End;
+
+// Create View Window
+ViewWindow MJ2000View({const});
+MJ2000View.CurrentViewpoint.ThreeDView.ReferenceFrame = "inertial";
+MJ2000View.CurrentViewpoint.ThreeDView.Declination = 20;
+MJ2000View.CurrentViewpoint.ThreeDView.RightAscension  = 200;
+MJ2000View.CurrentViewpoint.ThreeDView.FieldOfView = 60;
+
+// Set view distance
+MJ2000View.CurrentViewpoint.ThreeDView.Radius = 2.5*const[0].A;
+
+
+Report "Propagating constellation...." to Console;
+
+// Propagate constellation for two days
+
+Array PointCoverage[0]; // Array to hold coverage statistics for each point
+
+Array PointRevisit[0];  // Array to hold revisit statistics for each point
+
+Array PointInView[0];   // Array to hold per sensor coverage indication for each point
+
+ 
+
+Variable CoverageChange;
+Array CoverageTimeScale[10000];
+Array VisitCount[10000];
+Variable timeStep = 100;
+ 
+
+PointGroup PointGroup1;
+
+PointGroup1.NumberOfPoints = 10000;      // Change value to match analysis requirements
+For i = 0 to 10000-1;
+	CoverageTimeScale[i] = 30000;
+	VisitCount[i] = 0;
+End;
+Array currPtVisit[10000];
+While (const[0].ElapsedTime < TIMESPAN(1 days));
+
+ 
+
+      //CoverageChange will be 1 if any coverage statistic was updated
+		For i = 0 to 10000-1;
+			currPtVisit[i] = 0;
+		End;
+	 For j = 0 to const.Count-1;
+	 	
+	      CoverageChange = PointGroup1.Coverage(const[j],PointCoverage,PointRevisit);
+	 		For i = 0 to 10000-1;
+		  		currPtVisit[i] = currPtVisit[i] + PointRevisit[i];
+	 		End;
+	 End;
+	 If (1);
+				  For i = 0 to PointGroup1.NumberOfPoints - 1;
+				     If(currPtVisit[i] != VisitCount[i]);
+				     	CoverageTimeScale[i] = 0;
+				     	VisitCount[i] = currPtVisit[i];
+				     Else;
+				     	CoverageTimeScale[i] = CoverageTimeScale[i] + timeStep;
+				     End;
+				  End;
+		            For i = 0 to PointGroup1.NumberOfPoints - 1;
+
+		            	
+		            	  If (CoverageTimeScale[i] < 21600);
+		            	  		PointGroup1.PointColor[i] = 0x00FF00;
+		            	  Else;
+		            	  		PointGroup1.PointColor[i] = 0x0000FF;
+		            	  End;
+
+		            End;
+
+	      End;
+
+ 
+
+      View const, PointGroup1;
+
+      Step const;
+
+ 
+
+End;]]></ProjectScript>
+  <ProjectNotes></ProjectNotes>
+</FreeFlyerProjectFile>
